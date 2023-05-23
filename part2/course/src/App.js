@@ -4,7 +4,8 @@ import Notification from './components/Notification'
 import LoginForm from "./components/LoginForm"
 import noteService from './services/notes'
 import loginService from './services/login'
-
+import NoteForm from './components/NoteForm'
+import Togglable from './components/Togglable'
 const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
@@ -96,49 +97,32 @@ const App = () => {
         })
     }
 
-    const loginForm = () => {
-      const hideWhenVisible = { display: loginVisible ? 'none' : '' };
-      const showWhenVisible = { display: loginVisible ? '' : 'none' };
-    
-      return (
-        <div>
-          <div style={hideWhenVisible}>
-            <button onClick={() => setLoginVisible(true)}>log in</button>
-          </div>
-          <div style={showWhenVisible}>
-            <LoginForm
-              username={username}
-              password={password}
-              handleUsernameChange={({ target }) => setUsername(target.value)}
-              handlePasswordChange={({ target }) => setPassword(target.value)}
-              handleSubmit={handleLogin}
-            />
-            <button onClick={() => setLoginVisible(false)}>cancel</button>
-          </div>
-        </div>
-      );
-    };
-    
+
   
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input
-        value={newNote}
-        onChange={handleNoteChange}
-      />
-      <button type="submit">save</button>
-    </form>  
-  )
+  
+ 
 
   return (
     <div>
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      {!user && loginForm()} 
+      {!user && 
+      <Togglable buttonLabel="log in">
+
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target })=>setUsername(target.value)}
+        handlePasswordChange={({ target })=> setPassword(target.value)}
+        handleSubmit={handleLogin} />
+
+      </Togglable>} 
       {user && <div>
         <p>{user.name} logged in</p>
-          {noteForm()}
+        <Togglable buttonLabel="new note">
+            <NoteForm createNote={addNote} />
+          </Togglable>
         </div>
       } 
  
