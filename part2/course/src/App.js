@@ -8,14 +8,14 @@ import NoteForm from './components/NoteForm'
 import Togglable from './components/Togglable'
 const App = () => {
   const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState('')
+  // const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false);
+  // const [loginVisible, setLoginVisible] = useState(false);
 
   useEffect(() => {
     noteService
@@ -55,24 +55,21 @@ const App = () => {
     }
   }
 
-  const addNote = (event) => {
-    event.preventDefault()
-    const noteObject = {
-      content: newNote,
-      important: Math.random() > 0.5,
-    }
-
+  const addNote = (noteObject) => {
     noteService
       .create(noteObject)
-        .then(returnedNote => {
+      .then(returnedNote=>{
         setNotes(notes.concat(returnedNote))
-        setNewNote('')
       })
+    
+  }
+  const noteform =()=>{
+    <NoteForm createNote={addNote} />
   }
 
-  const handleNoteChange = (event) => {
-    setNewNote(event.target.value)
-  }
+  // const handleNoteChange = (event) => {
+  //   setNewNote(event.target.value)
+  // }
 
   const notesToShow = showAll
     ? notes
