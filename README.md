@@ -8,4 +8,7 @@ This repository contains my projects and exercises completed as part of the Full
 * Data for Countries - Built an app to display data fetched from an external API.
 * Phonebook Backend - Implemented the backend for the Phonebook app using NodeJS and Express.
 * Deploying App to Internet - Deployed the Phonebook application to a live server.
-* 
+* Flight diaries
+* Patientor
+* Rate repository app
+  
